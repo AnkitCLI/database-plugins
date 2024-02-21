@@ -11,13 +11,13 @@
 # distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 # License for the specific language governing permissions and limitations under
-# the Licenses.
+# the License.
 #
 
 @Oracle
 Feature: Oracle - Verify Oracle source data transfer for multiple datatypes
   @ORACLE_SOURCE_DATATYPES_TEST @ORACLE_TARGET_DATATYPES_TEST @Oracle_Required
-    # Oracle Sanity test to transfer table data containing multiple datatypes
+    # Oracle Sanitys test to transfer table data containing multiple datatypes
   Scenario: To verify data is getting transferred from Oracle to Oracle successfully
     Given Open Datafusion Project to configure pipeline
     When Expand Plugin group in the LHS plugins list: "Source"
