@@ -9,7 +9,7 @@
 #  License for the specific language governing permissions and limitations under
 #  the License.
 
-# This workflow will build a Java project with Maven
+# This workflow will build a Java project with Mavens
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 # Note: Any changes to this workflow would be used only after merging into develop
 name: Build e2e tests
@@ -24,7 +24,7 @@ on:
 
 jobs:
   build:
-    runs-on: k8s-runner-e2e
+    runs-on: self-hosted
     # We allow builds:
     # 1) When triggered manually
     # 2) When it's a merge into a branch
@@ -63,8 +63,9 @@ jobs:
       - name: Checkout e2e test repo
         uses: actions/checkout@v3
         with:
-          repository: cdapio/cdap-e2e-tests
+          repository: cloudsufi/cdap-e2e-tests
           path: e2e
+          ref: oracle_debug
 
       - name: Cache
         uses: actions/cache@v3
@@ -79,28 +80,28 @@ jobs:
         uses: 'google-github-actions/get-secretmanager-secrets@v0'
         with:
           secrets: |-
-            ORACLE_HOST:cdapio-github-builds/ORACLE_HOST
-            ORACLE_USERNAME:cdapio-github-builds/ORACLE_USERNAME
-            ORACLE_PASSWORD:cdapio-github-builds/ORACLE_PASSWORD
-            ORACLE_PORT:cdapio-github-builds/ORACLE_PORT
-            MSSQL_HOST:cdapio-github-builds/MSSQL_HOST
-            MSSQL_USERNAME:cdapio-github-builds/MSSQL_USERNAME
-            MSSQL_PASSWORD:cdapio-github-builds/MSSQL_PASSWORD
-            MSSQL_PORT:cdapio-github-builds/MSSQL_PORT
-            MYSQL_HOST:cdapio-github-builds/MYSQL_HOST
-            MYSQL_USERNAME:cdapio-github-builds/MYSQL_USERNAME
-            MYSQL_PASSWORD:cdapio-github-builds/MYSQL_PASSWORD
-            MYSQL_PORT:cdapio-github-builds/MYSQL_PORT
-            POSTGRESQL_HOST:cdapio-github-builds/POSTGRESQL_HOST
-            POSTGRESQL_USERNAME:cdapio-github-builds/POSTGRESQL_USERNAME
-            POSTGRESQL_PASSWORD:cdapio-github-builds/POSTGRESQL_PASSWORD
-            POSTGRESQL_PORT:cdapio-github-builds/POSTGRESQL_PORT
-            CLOUDSQL_POSTGRESQL_USERNAME:cdapio-github-builds/CLOUDSQL_POSTGRESQL_USERNAME
-            CLOUDSQL_POSTGRESQL_PASSWORD:cdapio-github-builds/CLOUDSQL_POSTGRESQL_PASSWORD
-            CLOUDSQL_POSTGRESQL_CONNECTION_NAME:cdapio-github-builds/CLOUDSQL_POSTGRESQL_CONNECTION_NAME
-            CLOUDSQL_MYSQL_USERNAME:cdapio-github-builds/CLOUDSQL_MYSQL_USERNAME
-            CLOUDSQL_MYSQL_PASSWORD:cdapio-github-builds/CLOUDSQL_MYSQL_PASSWORD
-            CLOUDSQL_MYSQL_CONNECTION_NAME:cdapio-github-builds/CLOUDSQL_MYSQL_CONNECTION_NAME
+            ORACLE_HOST:cdf-entcon/ORACLE_HOST
+            ORACLE_USERNAME:cdf-entcon/ORACLE_USERNAME
+            ORACLE_PASSWORD:cdf-entcon/ORACLE_PASSWORD
+            ORACLE_PORT:cdf-entcon/ORACLE_PORT
+            MSSQL_HOST:cdf-entcon/MSSQL_HOST
+            MSSQL_USERNAME:cdf-entcon/MSSQL_USERNAME
+            MSSQL_PASSWORD:cdf-entcon/MSSQL_PASSWORD
+            MSSQL_PORT:cdf-entcon/MSSQL_PORT
+            MYSQL_HOST:cdf-entcon/MYSQL_HOST
+            MYSQL_USERNAME:cdf-entcon/MYSQL_USERNAME
+            MYSQL_PASSWORD:cdf-entcon/MYSQL_PASSWORD
+            MYSQL_PORT:cdf-entcon/MYSQL_PORT
+            POSTGRESQL_HOST:cdf-entcon/POSTGRESQL_HOST
+            POSTGRESQL_USERNAME:cdf-entcon/POSTGRESQL_USERNAME
+            POSTGRESQL_PASSWORD:cdf-entcon/POSTGRESQL_PASSWORD
+            POSTGRESQL_PORT:cdf-entcon/POSTGRESQL_PORT
+            CLOUDSQL_POSTGRESQL_USERNAME:cdf-entcon/CLOUDSQL_POSTGRESQL_USERNAME
+            CLOUDSQL_POSTGRESQL_PASSWORD:cdf-entcon/CLOUDSQL_POSTGRESQL_PASSWORD
+            CLOUDSQL_POSTGRESQL_CONNECTION_NAME:cdf-entcon/CLOUDSQL_POSTGRESQL_CONNECTION_NAME
+            CLOUDSQL_MYSQL_USERNAME:cdf-entcon/CLOUDSQL_MYSQL_USERNAME
+            CLOUDSQL_MYSQL_PASSWORD:cdf-entcon/CLOUDSQL_MYSQL_PASSWORD
+            CLOUDSQL_MYSQL_CONNECTION_NAME:cdf-entcon/CLOUDSQL_MYSQL_CONNECTION_NAME
 
       - name: Run required e2e tests
         if: github.event_name != 'workflow_dispatch' && github.event_name != 'push' && steps.filter.outputs.e2e-test == 'false'

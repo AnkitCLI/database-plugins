@@ -15,7 +15,7 @@
 #
 
 @Oracle @Oracle_Required
-Feature: Oracle source- Verify Oracle source plugin design time scenarios
+Feature: Oracle source- Verify Oracle source plugin design time scenarioss
 
   @ORACLE_SOURCE_TEST
   Scenario: To verify Oracle source plugin validation with connection and basic details for connectivity
